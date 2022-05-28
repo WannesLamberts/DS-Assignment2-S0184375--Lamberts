@@ -9,7 +9,7 @@ services:
         POSTGRES_DB: movies
       volumes:
         - ./moviesDB/init.sql:/docker-entrypoint-initdb.d/init.sql
-        - ./moviesDB:/var/lib/postgresql
+        - ./moviesData:/var/lib/postgresql/data
     usersDB:
       image: postgres
       restart: always
@@ -19,7 +19,7 @@ services:
         POSTGRES_DB: users
       volumes:
         - ./usersDB/init.sql:/docker-entrypoint-initdb.d/init.sql
-        - ./usersDB:/var/lib/postgresql
+        - ./usersData:/var/lib/postgresql/data
 
     movies:
       build: movies

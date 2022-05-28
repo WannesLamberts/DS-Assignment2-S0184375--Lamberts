@@ -6,5 +6,3 @@ CREATE TABLE friends(
                     );
 CREATE TABLE groups(groupname varchar(255),creator varchar(255) NOT NULL REFERENCES users(username),PRIMARY KEY(groupname));
 CREATE TABLE groupmembers(groupname varchar(255) REFERENCES groups(groupname),member varchar(255) NOT NULL REFERENCES users(username),PRIMARY KEY(groupname,member));
-
-

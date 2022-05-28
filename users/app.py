@@ -44,6 +44,7 @@ class addfriend(Resource):
             connection = psycopg2.connect("host='usersDB' dbname='users' user='postgres' password='postgres'")
             cursor = connection.cursor()
             cursor.execute("INSERT INTO friends(userfrom,userto) VALUES(%s,%s) ", (username,fusername))
+            cursor.execute("INSERT INTO friends(userfrom,userto) VALUES(%s,%s) ", (fusername,username))
             connection.commit()
             cursor.close()
             connection.close()

@@ -162,7 +162,6 @@ def create_group():
     test = test.json()
     success = test
     save_to_session('create_success', success)
-
     return redirect('/groups')
 
 
