@@ -4,6 +4,7 @@ CREATE TABLE friends(
     userto varchar(255) REFERENCES users(username),
     PRIMARY KEY (userfrom,userto)
                     );
-INSERT INTO friends(userfrom,userto) VALUES ('test','test');
+CREATE TABLE groups(groupname varchar(255),creator varchar(255) NOT NULL REFERENCES users(username),PRIMARY KEY(groupname));
+CREATE TABLE groupmembers(groupname varchar(255) REFERENCES groups(groupname),member varchar(255) NOT NULL REFERENCES users(username),PRIMARY KEY(groupname,member));
 
 

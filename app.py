@@ -36,10 +36,8 @@ def catalogue():
     # ================================
 
     movies = []
-    #test = requests.get(
-    #    f'http://movies:5001/movies')
     test = requests.get(
-        f'http://127.0.0.1:5001/movies')
+        f'http://movies:5001/movies')
     test = json.loads(test.text)
     names=[]
     for record in test:
@@ -66,7 +64,7 @@ def actual_login():
 
     data = {'username':req_username, 'password':req_password}
     test = requests.get(
-        f'http://127.0.0.1:5002/login',json=data)
+        f'http://users:5002/login',json=data)
     test = json.loads(test.text)
     success = test
     save_to_session('success', success)
@@ -95,10 +93,7 @@ def actual_register():
     # ================================
 
     data = {'username': req_username, 'password': req_password}
-    #url='http://127.0.0.1:5002/register/'+accdata['username']+'/'+accdata['password']
-    #test = requests.post(url)
-    #test = json.loads(test.text)
-    url='http://127.0.0.1:5002/register'
+    url='http://users:5002/register'
     test = requests.post(url,json=data)
     test = test.json()
     success = test
@@ -133,7 +128,7 @@ def add_friend():
 
 
     data = {'username': username,'fusername': friend_username}
-    url = 'http://127.0.0.1:5002/addfriend'
+    url = 'http://users:5002/addfriend'
     test = requests.post(url, json=data)
     test = test.json()
     success = test
@@ -161,10 +156,11 @@ def create_group():
 
     groupname = request.form['groupname']
 
-    data = {'username':username}
-
-    success = None
-
+    data = {'username': username, 'groupname': groupname}
+    url = 'http://users:5002/creategroup'
+    test = requests.post(url, json=data)
+    test = test.json()
+    success = test
     save_to_session('create_success', success)
 
     return redirect('/groups')
@@ -181,10 +177,11 @@ def add_friend_to_group():
     # ==============================
     groupname, friend_username = request.form['groupname'], request.form['friendname']
 
-    data = {'username': username}
-
-    success = None
-
+    data = {'username': username, 'groupname': groupname,'friendname':friend_username}
+    url = 'http://users:5002/addtogroup'
+    test = requests.post(url, json=data)
+    test = test.json()
+    success = test
     save_to_session('add_success', success)
     return redirect('/groups')
 

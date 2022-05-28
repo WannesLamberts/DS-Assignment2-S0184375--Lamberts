@@ -6,7 +6,7 @@ api = Api(app)
 
 class movies(Resource):
     def get(self):
-        connection=psycopg2.connect("host='localhost' dbname='movies' user='postgres' password='123456'")
+        connection=psycopg2.connect("host='moviesDB' dbname='movies' user='postgres' password='postgres'")
         cursor=connection.cursor()
         cursor.execute("SELECT * FROM movies")
         rows=cursor.fetchall()
