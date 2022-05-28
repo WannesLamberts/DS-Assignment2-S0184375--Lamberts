@@ -36,12 +36,14 @@ def catalogue():
     # ================================
 
     movies = []
+    #test = requests.get(
+    #    f'http://movies:5001/movies')
     test = requests.get(
         f'http://127.0.0.1:5001/movies')
     test = json.loads(test.text)
     names=[]
     for record in test:
-        names.append(record[0])
+        names.append(record[1])
     movies=names
     return render_template('catalogue.html', username=username, password=password, movies=movies)
 
@@ -63,13 +65,13 @@ def actual_login():
     # ================================
 
     data = {'username':req_username, 'password':req_password}
-
-    success = None
-
+    test = requests.get(
+        f'http://127.0.0.1:5002/login',json=data)
+    test = json.loads(test.text)
+    success = test
     save_to_session('success', success)
     if success:
         global username, password
-
         username = req_username
         password = req_password
 
@@ -93,14 +95,19 @@ def actual_register():
     # ================================
 
     data = {'username': req_username, 'password': req_password}
-
-    success = None
+    #url='http://127.0.0.1:5002/register/'+accdata['username']+'/'+accdata['password']
+    #test = requests.post(url)
+    #test = json.loads(test.text)
+    url='http://127.0.0.1:5002/register'
+    test = requests.post(url,json=data)
+    test = test.json()
+    success = test
 
     save_to_session('success', success)
 
     if success:
         global username, password
-
+        print("logged in")
         username = req_username
         password = req_password
 
@@ -125,9 +132,11 @@ def add_friend():
     # ==============================
 
 
-    data = {'username': username}
-
-    success = None
+    data = {'username': username,'fusername': friend_username}
+    url = 'http://127.0.0.1:5002/addfriend'
+    test = requests.post(url, json=data)
+    test = test.json()
+    success = test
 
     save_to_session('success', success)
 

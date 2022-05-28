@@ -1,0 +1,29 @@
+version: '3.1'
+services:
+    moviesDB:
+      image: postgres
+      restart: always
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: movies
+      volumes:
+        - ./moviesDB/init.sql:/docker-entrypoint-initdb.d/init.sql
+    usersDB:
+      image: postgres
+      restart: always
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: users
+      volumes:
+        - ./usersDB/init.sql:/docker-entrypoint-initdb.d/init.sql
+    movies:
+      build: movies
+      ports:
+        - 5001:5001
+    website:
+      build: .
+      ports:
+        - 5000:5000
+

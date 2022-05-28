@@ -8,12 +8,12 @@ class movies(Resource):
     def get(self):
         connection=psycopg2.connect("host='localhost' dbname='movies' user='postgres' password='123456'")
         cursor=connection.cursor()
-        cursor.execute('SELECT * FROM movies')
+        cursor.execute("SELECT * FROM movies")
         rows=cursor.fetchall()
-        print("test")
+        cursor.close()
+        connection.close()
         test=jsonify(rows)
         return test
 api.add_resource(movies,'/movies')
-if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=5000)
+
 
