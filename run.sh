@@ -1,1 +1,1 @@
-python3 -m flask run
+docker-compose up --build
